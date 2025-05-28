@@ -1,5 +1,7 @@
+import json
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
+from django.template.loader import render_to_string
 from . import services
 # Create your views here.
 
@@ -14,8 +16,10 @@ def soma(request):
 def calcular_imc_view(request):
     if request.method == 'GET':
         return redirect('imc:index')
-    altura = float(request.POST.get('altura'))
-    peso = float(request.POST.get('peso'))
+    dados= json.loads(request.body) #Agora o conteúdo é JSON, o que precisa ser convertido para um dicionário
+    altura = float(dados['altura'])
+    peso = float(dados['peso'])
     imc_service=services.IMCService()
     contexto = imc_service.calcular_imc(altura, peso)
-    return render(request, 'resultado_imc.html', contexto)
+    html= render_to_string('resultado_imc.html', contexto) #A função render_to_string renderiza o template e retorna o HTML como string
+    return HttpResponse(html)

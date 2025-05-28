@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado IMC</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    {% load static %}
-    <script src="{% static 'imc/js/msg.js' %}"></script>
-</head>
-<body>
-    <section class="section">
+
         <div class="container">
             <h1 class="title has-text-centered">Resultado do Cálculo do IMC</h1>
             <div class="box">
@@ -18,15 +7,4 @@
                 <p><strong>IMC:</strong> {{ imc }}</p>
                 <p><strong>Classificação:</strong> {{ classificacao }}</p>
             </div>
-            <div class="has-text-centered">
-                <a href="{% url 'imc:index' %}" class="button is-primary">Calcular Novamente</a>
-            </div>
-            {% if classificacao %}
-                <script>
-                    showMessage({{ classificacao|escapejs }});
-                </script>
-            {% endif %}
         </div>
-    </section>
-</body>
-</html>
